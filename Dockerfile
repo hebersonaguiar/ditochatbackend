@@ -16,7 +16,7 @@ COPY client.go hub.go main.go go.mod go.sum ./
 RUN go get ./...
 
 # Build the Go app
-RUN go build .
+RUN go build ./
                                                                                                        
 # Expose port 8080 to the outside world                                                                
 EXPOSE 8080
