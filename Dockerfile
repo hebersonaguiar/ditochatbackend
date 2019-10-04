@@ -1,8 +1,8 @@
 # Start from the latest golang base image
 FROM golang:latest
 
-ENV ALLOWED_ORIGIN='http://frontend:3000'
-ENV REDIS_ADDR=localhost:6379
+ENV ALLOWED_ORIGIN='http://0.0.0.0:3000'
+ENV REDIS_ADDR=redis:6379
 
 # Add Maintainer Info
 LABEL maintainer="Heberson Aguiar <hebersonaguiar@gmail.com>"
