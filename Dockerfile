@@ -10,14 +10,10 @@ LABEL maintainer="Heberson Aguiar <hebersonaguiar@gmail.com>"
 # Set the Current Working Directory inside the container
 WORKDIR /app                                               
 
-COPY client.go /app/client.go
-COPY hub.go    /app/hub.go
-COPY main.go   /app/main.go
-COPY go.mod    /app/go.mod
-COPY go.sum    /app/go.sum
+COPY client.go hub.go main.go go.mod go.sum ./
 
 # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go get /app/...
+RUN go get ./...
 
 # Build the Go app
 RUN go build .
