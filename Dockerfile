@@ -13,7 +13,6 @@ WORKDIR /app
 COPY client.go /app/client.go
 COPY hub.go    /app/hub.go
 COPY main.go   /app/main.go
-COPY home.html /app/home.html
 COPY go.mod    /app/go.mod
 COPY go.sum    /app/go.sum
 
