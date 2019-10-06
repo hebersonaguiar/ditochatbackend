@@ -15,7 +15,7 @@ help() {
 if [ ! -z "$ALLOWED_ORIGIN" ] || [ ! -z "$REDIS_ADDR" ] ; then
 
     dig +short $REDIS_ADDR > /app/REDIS_ADDR
-    IPREDIS=$(cat /app/IPBACKEND)
+    IPREDIS=$(cat /app/REDIS_ADDR)
     sed -i "s/REDIS_ADDR/$IPREDIS/g" /app/main.go
     sed -i "s/ALLOWED_ORIGIN/$ALLOWED_ORIGIN/g" /app/main.go
     
