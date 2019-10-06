@@ -16,10 +16,10 @@ COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-RUN go get ./...
+#RUN go get ./...
 
 # Build the Go app
-RUN go build ./
+#RUN go build ./
 
 ENTRYPOINT ["/entrypoint.sh"]
                                                                                                        
