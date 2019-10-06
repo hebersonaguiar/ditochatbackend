@@ -1,6 +1,8 @@
 # Start from the latest golang base image
 FROM golang:latest
 
+RUN apt-get update -y && \
+    apt install dnsutils
 #ENV ALLOWED_ORIGIN='http://192.168.0.18:3000'
 #ENV REDIS_ADDR=192.168.0.18:6379
 
