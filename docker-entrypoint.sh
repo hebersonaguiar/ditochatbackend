@@ -19,9 +19,9 @@ if [ ! -z "$ALLOWED_ORIGIN" ] || [ ! -z "$REDIS_ADDR" ] ; then
     sed -i "s/REDIS_ADDR/$IPREDIS/g" /app/main.go
     sed -i "s/ALLOWED_ORIGIN/$ALLOWED_ORIGIN/g" /app/main.go
     
-    cd /app
-    go get ./...
-    go build ./
+    #cd /app
+    #go get ./...
+    #go build ./
 
     #echo "export ALLOWED_ORIGIN='$ALLOWED_ORIGIN'" >> ~/.bash_profile
     #echo "export REDIS_ADDR=$REDIS_ADDR" >> ~/.bash_profile
