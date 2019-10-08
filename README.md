@@ -42,7 +42,7 @@ service:
   internalPort: 8080
 ```
 * Importante:
-No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico Entrypoint, para que elas sejam informadas para o container foi criado um configmap do Kubernetes com o nome chat-backend-values, sua execução foi informada anteriormente no topico Kubernetes.
+No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico Entrypoint. Para que elas sejam informadas para o container foi criado um configmap no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
 
 
 ## Jenkinsfile
