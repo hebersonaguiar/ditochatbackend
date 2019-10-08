@@ -32,6 +32,7 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
 Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projeto e dentro contém os arquivos do Chart, na implantação do projeto o arquivo `values.yaml` deve ser alterado alguns parâmentros como, quantidade de replicas, portas de serviço, resources e outros dados necessários para implantação no kuberntes.
+
 Parametros alerados para essa aplicação:
 ```yaml
 service:
@@ -40,6 +41,9 @@ service:
   externalPort: 8080
   internalPort: 8080
 ```
+
+# Importante:
+No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico Entrypoint, para que elas sejam informadas para o container foi criado um configmap do Kubernetes com o nome chat-backend-values, sua execução foi informada anteriormente no topico Kubernetes.
 
 
 ## Jenkinsfile
