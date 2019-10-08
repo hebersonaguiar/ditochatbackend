@@ -27,7 +27,7 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 	   -e REDIS_ADDR='localhost:6379' \
 	   hebersonaguiar/ditochatbackend
 ```
-* Importante: para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
+* Importante: para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
 
 ## Google Cloud Plataform
 Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
@@ -35,6 +35,14 @@ Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando 
 Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório {repositorio de doc}
 
 ## Jenkins X
+O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
+
+Após a criação do cluster kubernetes na GCP utilizando o Jenkins X como informado no repositório {repositorio de doc} é necessário importar esse repositório para isso foi utilizado o comando abaixo:
+
+```bash
+jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
+```
+Ao importar esse repositório o Jenkins X se encarrega de criar os artefatos como Jenkinsfile, chart e o skaffold. Após a importação as alterações de vairávies desejadas podem ser realizadas. Lembrando que após o commit das alterações o deploy é iniciado.
 
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
@@ -50,7 +58,7 @@ kubectl create configmap chat-backend-values \
 		--namespace chatdito
 ```
 
-* Importante: Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
+* Importante: Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
 
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
