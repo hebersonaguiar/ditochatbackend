@@ -6,7 +6,7 @@ Inspirado no projeto [https://github.com/gorilla/websocket/tree/master/examples/
 
 ## Docker
 	O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível.
-	Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples, abaixo e rápido.
+	Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples, abaixo e rápido. 
 
 ## Dockerfile
 	No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo o código da aplicação e a compilação são realizadas para que seja executada corretamente.
