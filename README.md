@@ -22,17 +22,17 @@ git clone https://github.com/hebersonaguiar/ditochatbackend.git
 docker build -t hebersonaguiar/ditochatbackend ./ditochatbackend
 ```
 ## Uso da imagem
-* Para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
 ```bash
 docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 	   -e REDIS_ADDR='localhost:6379' \
 	   hebersonaguiar/ditochatbackend
 ```
+* Importante: para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
 
 ## Google Cloud Plataform
 Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
 
-Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster estão no repositório {repositorio de doc}
+Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório {repositorio de doc}
 
 ## Jenkins X
 
@@ -50,8 +50,7 @@ kubectl create configmap chat-backend-values \
 		--namespace chatdito
 ```
 
-* Importante:
-Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com`
+* Importante: Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
 
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
