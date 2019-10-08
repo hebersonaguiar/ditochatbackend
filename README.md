@@ -18,13 +18,15 @@ O docker-entrypoint.sh realiza uma checagem verificando se os valores foram info
 
 ## Build da imagem local
 ```bash
-git clone [https://github.com/hebersonaguiar/ditochatbackend](https://github.com/hebersonaguiar/ditochatbackend.git)
+git clone https://github.com/hebersonaguiar/ditochatbackend.git
 docker build -t hebersonaguiar/ditochatbackend ./ditochatbackend
 ```
 ## Uso da imagem
 * Para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379
 ```bash
-docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' -e REDIS_ADDR=localhost:6379 hebersonaguiar/ditochatbackend
+docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
+	   -e REDIS_ADDR='localhost:6379' \
+	   hebersonaguiar/ditochatbackend
 ```
 
 
