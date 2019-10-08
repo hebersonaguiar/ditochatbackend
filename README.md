@@ -44,6 +44,12 @@ jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
 ```
 Ao importar esse repositório o Jenkins X se encarrega de criar os artefatos como Jenkinsfile, chart e o skaffold. Após a importação as alterações de vairávies desejadas podem ser realizadas. Lembrando que após o commit das alterações o deploy é iniciado.
 
+Caso não queria que o Jenkins X não crie os artefatos basta executar o comando abaixo:
+
+```bash
+jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
+```
+
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
