@@ -15,6 +15,7 @@ No Dockerfile encontra-se todas as informações para a criação da imagem, par
 No Docekrfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um ShellScript que recebe os parâmentros necessários para execução da aplicação são eles:
 - `ALLOWED_ORIGIN`: resposável pro aceitar requeisições de uma determinada origem. Ex: `http://localhost:3000`
 - `REDIS_ADDR`: resposável por receber as mensagem enviadas Ex: `localhost:6379`
+
 O docker-entrypoint.sh realiza uma checagem verificando se os valores foram informados, se sim as variáveis são alteradas no arquivo `main.go`, se não o container não inicializa infomrando log de como usar o container.
 
 ## Build
