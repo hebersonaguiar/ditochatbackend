@@ -37,7 +37,10 @@ Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud
 Para essa aplicação foi utilizado o ConfigMap do kubernetes, que de forma simples é um conjunto de pares de chave-valor pra armazenamento de configurações, que fica armazenado dentro de arquivos que podemo ser consumidos através de pods ou controllers, o configmap criado foi:
 
 ```bash
-kubectl create configmap chat-backend-values --from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' --from-literal REDIS_ADDR='redis.ditochallenge.com:6379' -n chatdito
+kubectl create configmap chat-backend-values \
+		--from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' \
+		--from-literal REDIS_ADDR='redis.ditochallenge.com:6379' \
+		--namespace chatdito
 ```
 
 * Importante:
