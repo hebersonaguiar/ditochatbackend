@@ -32,6 +32,15 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
 Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projeto e dentro contém os arquivos do Chart, na implantação do projeto o arquivo `values.yaml` deve ser alterado alguns parâmentros como, quantidade de replicas, portas de serviço, resources e outros dados necessários para implantação no kuberntes.
+Parametros alerados para essa aplicação:
+```yaml
+service:
+  name: backend
+  type: LoadBalancer
+  externalPort: 8080
+  internalPort: 8080
+```
+
 
 ## Jenkinsfile
 O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
@@ -41,3 +50,6 @@ Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kub
 * Promoção para o ambiente de produção Kubernetes
 O acionamento do deploy é executado após a execução de um commit, uma vez acionado o Jenkins X executa o Jenkinsfile e o deploy da aplicação é realizada.
 
+## Skaffold
+Skaffold é uma ferramenta de linha de comando que facilita o desenvolvimento contínuo de aplicações no Kubernetes. O Skaffold lida com o fluxo de trabalho para implantar a aplicação.
+No arquivo skaffold.yaml possuem as variáveis como a do registry, imagem, tag, helm chart, não é necessário nehnhuma alteração, elas são realizadas pelo Jenkins X
