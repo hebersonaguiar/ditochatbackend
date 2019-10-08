@@ -29,30 +29,15 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 	   hebersonaguiar/ditochatbackend
 ```
 
+## Helm Chart
+O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
+Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projeto e dentro contém os arquivos do Chart, na implantação do projeto o arquivo `values.yaml` deve ser alterado alguns parâmentros como, quantidade de replicas, portas de serviço, resources e outros dados necessários para implantação no kuberntes.
 
-## Build
-Entre no diretório `backend`:
-* Execução sem Docker
+## Jenkinsfile
+O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
+Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório {repositorio de doc}, nele possuem três basicamente três estágios (stages) 
+* Build e Push da imagem
+* Alteração do Chart e push para o Chart Museum
+* Promoção para o ambiente de produção Kubernetes
+O acionamento do deploy é executado após a execução de um commit, uma vez acionado o Jenkins X executa o Jenkinsfile e o deploy da aplicação é realizada.
 
-```bash
-go get ./...
-go build .
-```
-
-## Usage
-* Execução sem Docker
-
-```bash
-./backend --help
-
-Usage of ./backend:
-  -addr string
-    	http service address (default ":8080")
-```
-
-## Run
-* Execução sem Docker
-
-```bash
-ALLOWED_ORIGIN='http://localhost:3000' REDIS_ADDR=localhost:6379 ./backend
-```
