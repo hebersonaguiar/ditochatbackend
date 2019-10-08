@@ -33,7 +33,7 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
 Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projeto e dentro contém os arquivos do Chart, na implantação do projeto o arquivo `values.yaml` deve ser alterado alguns parâmentros como, quantidade de replicas, portas de serviço, resources e outros dados necessários para implantação no kuberntes.
 
-Parametros alerados para essa aplicação:
+Parametros alerados para essa aplicação em `chart/values.yaml`:
 ```yaml
 service:
   name: backend
