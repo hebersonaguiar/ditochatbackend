@@ -14,9 +14,9 @@ No Docekrfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um S
 - `ALLOWED_ORIGIN`: resposável pro aceitar requisições de uma determinada origem. Ex: `http://localhost:3000`
 - `REDIS_ADDR`: resposável por receber as mensagem enviadas. Ex: `localhost:6379`
 
-O docker-entrypoint.sh realiza uma checagem verificando se os valores foram informados, se sim as variáveis são alteradas no arquivo `main.go`, se não o container não inicializa infomrmando log de como inicializar o container.
+O docker-entrypoint.sh realiza uma checagem verificando se os valores foram informados, se sim as variáveis são alteradas no arquivo `main.go`, se não o contêiner não inicializa infomrmando log de como inicializar o contêiner.
 
-## Build da imagem local
+## Build da imagem
 ```bash
 git clone https://github.com/hebersonaguiar/ditochatbackend.git
 docker build -t hebersonaguiar/ditochatbackend ./ditochatbackend
@@ -29,10 +29,17 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 	   hebersonaguiar/ditochatbackend
 ```
 
+## Google Cloud Plataform
+Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
+
+Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster estão no repositório {repositorio de doc}
+
+## Jenkins X
+
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
-Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud Plataform - GCP, utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster, dados de criação do cluster e acessos estão no repositório {repositorio de doc}
+Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório {repositorio de doc}
 
 Para essa aplicação foi utilizado o ConfigMap do kubernetes, que de forma simples é um conjunto de pares de chave-valor pra armazenamento de configurações, que fica armazenado dentro de arquivos que podemo ser consumidos através de pods ou controllers, o configmap criado foi:
 
@@ -59,7 +66,7 @@ service:
   internalPort: 8080
 ```
 * Importante:
-No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico Entrypoint. Para que elas sejam informadas para o container foi criado um configmap no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
+No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner foi criado um configmap no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
 
 
 ## Jenkinsfile
