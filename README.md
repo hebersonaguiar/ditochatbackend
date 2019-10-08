@@ -35,7 +35,7 @@ Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projet
 
 ## Jenkinsfile
 O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
-Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório {repositorio de doc}, nele possuem três basicamente três estágios (stages) 
+Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório {repositorio de doc}, nele possuem alguns estágios 
 * Build e Push da imagem
 * Alteração do Chart e push para o Chart Museum
 * Promoção para o ambiente de produção Kubernetes
