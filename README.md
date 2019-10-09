@@ -58,18 +58,19 @@ jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
-Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
+Para essa aplicação foi utilizado o kubernetes na versão `v1.13.7-gke.24`, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
 
 Para essa aplicação foi utilizado o ConfigMap do kubernetes, que de forma simples é um conjunto de pares de chave-valor pra armazenamento de configurações, que fica armazenado dentro de arquivos que podemo ser consumidos através de pods ou controllers, o configmap criado foi:
 
 ```bash
+kubectl create namespace chatdito
+
 kubectl create configmap chat-backend-values \
 		--from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' \
 		--from-literal REDIS_ADDR='redis.ditochallenge.com:6379' \
 		--namespace chatdito
 ```
-
-* Importante: Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
+* Importante: Para esse repositório foi criado um namespace específco, caso já exista algum a criação do mesmo não é necessária, atente-se apenas em criar o configmap no namespace correto. Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
 
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação persnalizar os parâmentros com facilidade.
@@ -86,7 +87,7 @@ service:
 ...
 ```
 * Importante:
-No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
+No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner no cluster kubernetes foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
 
 
 ## Jenkinsfile
