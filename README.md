@@ -4,7 +4,7 @@ Inspirado no projeto [https://github.com/gorilla/websocket/tree/master/examples/
 
 ## Docker
 O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível.
-	Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples, abaixo e rápido. 
+Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido. 
 
 ## Dockerfile
 No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo é copiado código da aplicação e a compilação são realizadas para que seja executada corretamente.
@@ -21,6 +21,11 @@ O docker-entrypoint.sh realiza uma checagem verificando se os valores foram info
 git clone https://github.com/hebersonaguiar/ditochatbackend.git
 docker build -t hebersonaguiar/ditochatbackend ./ditochatbackend
 ```
+## Push da imagem
+```bash
+docker push hebersonaguiar/ditochatbackend:latest
+```
+
 ## Uso da imagem
 ```bash
 docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
