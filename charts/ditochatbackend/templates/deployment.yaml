@@ -24,6 +24,16 @@ spec:
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         env:
+        - name: ALLOWED_ORIGIN
+          valueFrom:
+            configMapKeyRef:
+              name: chat-backend-values
+              key: ALLOWED_ORIGIN
+        - name: REDIS_ADDR
+          valueFrom:
+            configMapKeyRef:
+              name: chat-backend-values
+              key: REDIS_ADDR
 {{- range $pkey, $pval := .Values.env }}
         - name: {{ $pkey }}
           value: {{ quote $pval }}
