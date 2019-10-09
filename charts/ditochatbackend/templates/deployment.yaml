@@ -8,7 +8,15 @@ metadata:
     draft: {{ default "draft-app" .Values.draft }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.replicaCount }}  
+  strategy:
+    type: RollingUpdate
+    rollingParams:
+      intervalSeconds: {{ .Values.intervalSeconds }}
+      maxSurge: {{ .Values.maxSurge }}
+      maxUnavailable: {{ .Values.maxUnavailable }}
+      timeoutSeconds: {{ .Values.timeoutSeconds }}
+      updatePeriodSeconds: {{ .Values.updatePeriodSeconds }}
   template:
     metadata:
       labels:
@@ -34,27 +42,13 @@ spec:
             configMapKeyRef:
               name: chat-backend-values
               key: REDIS_ADDR
+        - name: DB_USER
 {{- range $pkey, $pval := .Values.env }}
         - name: {{ $pkey }}
-          value: {{ quote $pval }}
+          value: {{ $pval }}
 {{- end }}
         ports:
         - containerPort: {{ .Values.service.internalPort }}
-        livenessProbe:
-          httpGet:
-            path: {{ .Values.probePath }}
-            port: {{ .Values.service.internalPort }}
-          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
-          periodSeconds: {{ .Values.livenessProbe.periodSeconds }}
-          successThreshold: {{ .Values.livenessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
-        readinessProbe:
-          httpGet:
-            path: {{ .Values.probePath }}
-            port: {{ .Values.service.internalPort }}
-          periodSeconds: {{ .Values.readinessProbe.periodSeconds }}
-          successThreshold: {{ .Values.readinessProbe.successThreshold }}
-          timeoutSeconds: {{ .Values.readinessProbe.timeoutSeconds }}
         resources:
 {{ toYaml .Values.resources | indent 12 }}
       terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
