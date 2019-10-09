@@ -7,7 +7,7 @@ O Docker é uma plataforma para desenvolvedores e administradores de sistemas pa
 	Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples, abaixo e rápido. 
 
 ## Dockerfile
-No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo o código da aplicação e a compilação são realizadas para que seja executada corretamente.
+No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo é copiado código da aplicação e a compilação são realizadas para que seja executada corretamente.
 
 ## Entrypoint
 No Docekrfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um ShellScript que recebe os parâmentros necessários para execução da aplicação são eles:
@@ -32,12 +32,12 @@ docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
 ## Google Cloud Plataform
 Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
 
-Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório {repositorio de doc}
+Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
 
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
 
-Após a criação do cluster kubernetes na GCP utilizando o Jenkins X como informado no repositório {repositorio de doc} é necessário importar esse repositório para isso foi utilizado o comando abaixo:
+Após a criação do cluster kubernetes na GCP utilizando o Jenkins X como informado no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git) é necessário importar esse repositório para isso foi utilizado o comando abaixo:
 
 ```bash
 jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
@@ -53,7 +53,7 @@ jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
-Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório {repositorio de doc}
+Para essa aplicação foi utilizado o kubernetes na versão XXX, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
 
 Para essa aplicação foi utilizado o ConfigMap do kubernetes, que de forma simples é um conjunto de pares de chave-valor pra armazenamento de configurações, que fica armazenado dentro de arquivos que podemo ser consumidos através de pods ou controllers, o configmap criado foi:
 
@@ -72,11 +72,13 @@ Para esse repositório o Helm Chart esta dentro da pasta chart na raiz do projet
 
 Parametros alerados para essa aplicação em `chart/values.yaml`:
 ```yaml
+...
 service:
   name: backend
   type: LoadBalancer
   externalPort: 8080
   internalPort: 8080
+...
 ```
 * Importante:
 No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico Kubernetes.
