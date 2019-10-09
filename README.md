@@ -86,7 +86,7 @@ No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIG
 
 ## Jenkinsfile
 O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
-Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório {repositorio de doc}, nele possuem alguns estágios 
+Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git), nele possuem alguns estágios 
 * Build e Push da imagem
 * Alteração do Chart e push para o Chart Museum
 * Promoção para o ambiente de produção Kubernetes
