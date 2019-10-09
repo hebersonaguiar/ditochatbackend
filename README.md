@@ -10,7 +10,7 @@ Originalmente essa aplicação não foi desenvolvida para docker, porém sua cri
 No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo é copiado código da aplicação e a compilação são realizadas para que seja executada corretamente.
 
 ## Entrypoint
-No Docekrfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um ShellScript que recebe os parâmentros necessários para execução da aplicação são eles:
+No Dockerfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um ShellScript que recebe os parâmentros necessários para execução da aplicação são eles:
 - `ALLOWED_ORIGIN`: resposável pro aceitar requisições de uma determinada origem. Ex: `http://localhost:3000`
 - `REDIS_ADDR`: resposável por receber as mensagem enviadas. Ex: `localhost:6379`
 
@@ -87,7 +87,7 @@ service:
 ...
 ```
 * Importante:
-No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner no cluster kubernetes foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no topico [Kubernetes](https://github.com/hebersonaguiar/ditochatbackend#kubernetes).
+No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner no cluster kubernetes foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no tópico [Kubernetes](https://github.com/hebersonaguiar/ditochatbackend#kubernetes).
 
 
 ## Jenkinsfile
