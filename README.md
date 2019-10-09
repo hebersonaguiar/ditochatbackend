@@ -1,5 +1,7 @@
 App backend em Go que transmite mensagens recebidas para todos os clientes conectados usando Websockets. Além disso, persiste as últimas 1000 mensagens no Redis e expõe uma API json para recuperá-la.
 
+Repositório base: https://github.com/ditointernet/dito-chat/tree/master/backend
+
 Inspirado no projeto [https://github.com/gorilla/websocket/tree/master/examples/chat](https://github.com/gorilla/websocket/tree/master/examples/chat)
 
 ## Docker
