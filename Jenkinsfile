@@ -32,7 +32,7 @@ pipeline {
       }
       steps {
         container('jx-base') {
-          dir('./charts/frete') {
+          dir('./charts/ditochatbackend') {
             sh "jx step changelog --version v\$(cat ../../VERSION)"
 
             // release the helm chart
