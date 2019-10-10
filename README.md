@@ -6,6 +6,29 @@ Inspirado no projeto [https://github.com/gorilla/websocket/tree/master/examples/
 
 DNS utilizado para essa aplicação: `backend.ditochallenge.com` 
 
+## Tópicos
+[Docker](https://github.com/hebersonaguiar/ditochatbackend#docker)
+
+[Dockerfile](https://github.com/hebersonaguiar/ditochatbackend#dockerfile)
+
+[Buil da imagem](https://github.com/hebersonaguiar/ditochatbackend#build-da-imagem)
+
+[Push da imagem](https://github.com/hebersonaguiar/ditochatbackend#push-da-imagem)
+
+[Uso da imagem](https://github.com/hebersonaguiar/ditochatbackend#uso-da-imagem)
+
+[Google Cloud Plataform](https://github.com/hebersonaguiar/ditochatbackend#google-cloud-plataform)
+
+[Jenkins X](https://github.com/hebersonaguiar/ditochatbackend#jenkins-x)
+
+[Kubernetes Engine](https://github.com/hebersonaguiar/ditochatbackend#kubernetes)
+
+[Helm Chart](https://github.com/hebersonaguiar/ditochatbackend#helm-chart)
+
+[Jenkinsfile](https://github.com/hebersonaguiar/ditochatbackend#jenkinsfile)
+
+[Skaffold](https://github.com/hebersonaguiar/ditochatbackend#skaffold)
+
 ## Docker
 O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível.
 Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido. 
@@ -33,12 +56,12 @@ docker run docker -dti hebersonaguiar/ditochatbackend
 ## Google Cloud Plataform
 Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
 
-Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS da aplicação do domínio `ditochallenge.com` para o serviço do kubernetes utilizando o Kubernetes Engine, no qual foi criado um cluster. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
+Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS da aplicação do domínio `ditochallenge.com` para o serviço do kubernetes utilizando o Kubernetes Engine, no qual foi criado um cluster. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs#google-cloud-plataform)
 
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
 
-Após a criação do cluster kubernetes na GCP utilizando o Jenkins X como informado no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git) é necessário importar esse repositório para isso foi utilizado o comando abaixo:
+Após a criação do cluster kubernetes na GCP utilizando o Jenkins X como informado no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs#jenkins-x) é necessário importar esse repositório para isso foi utilizado o comando abaixo:
 
 ```bash
 jx import --url https://github.com/hebersonaguiar/ditochatbackend.git
@@ -54,7 +77,7 @@ jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
-Para essa aplicação foi utilizado o kubernetes na versão `v1.13.7-gke.24`, na Google Cloud Plataform - GCP utilizando o Kubernetes Engine, ou seja, a criação do cluster kubernetes é realizado pela própria GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre si, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
+Para essa aplicação foi utilizado o kubernetes na versão `v1.13.7-gke.24`, na Google Cloud Plataform - GCP utilizando o Kubernetes Engine, ou seja, a criação do cluster kubernetes é realizado pela própria GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre si, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs#kubernetes)
 
 Para essa aplicação foi criado um namespace chamado chatdito, segue abaixo:
 
