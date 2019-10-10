@@ -38,7 +38,7 @@ pipeline {
             // release the helm chart
             sh "jx step helm release"
 
-            // promote through all 'Auto' promotion Environments
+            // promote through all 'Auto' promotion Environments ChatDito
             // sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION) --no-wait=true --no-poll=true"
             sh "jx promote -b --all-auto --timeout 1h --version \$(cat ../../VERSION)"
           }
