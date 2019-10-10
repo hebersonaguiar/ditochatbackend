@@ -12,12 +12,12 @@ LABEL maintainer="Heberson Aguiar <hebersonaguiar@gmail.com>"
 WORKDIR /app                                               
 
 COPY client.go hub.go main.go go.mod go.sum ./
-COPY docker-entrypoint.sh /entrypoint.sh
+#COPY docker-entrypoint.sh /entrypoint.sh
 
-RUN chmod +x /entrypoint.sh
+#RUN chmod +x /entrypoint.sh
 
 # Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/entrypoint.sh"]
 
 RUN go get ./...
 

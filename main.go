@@ -18,7 +18,8 @@ var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
 	CheckOrigin: func(r *http.Request) bool {
-		origin := "http://ALLOWED_ORIGIN:3000"
+		origin := "http://frontend.ditochallenge.com:3000"
+		// origin := "http://ALLOWED_ORIGIN:3000"
 // 		origin := os.Getenv("ALLOWED_ORIGIN")
 		if origin != "" && origin == r.Header.Get("Origin") {
 			return true
@@ -60,7 +61,8 @@ func serveHTTP(w http.ResponseWriter, _ *http.Request) {
 	}
 
 	w.Header().Set("Content-Type", "application/json")
-	w.Header().Set("Access-Control-Allow-Origin", "http://ALLOWED_ORIGIN:3000")
+	w.Header().Set("Access-Control-Allow-Origin", "http://frontend.ditochallenge.com:3000")
+	// w.Header().Set("Access-Control-Allow-Origin", "http://ALLOWED_ORIGIN:3000")
 // 	w.Header().Set("Access-Control-Allow-Origin", os.Getenv("ALLOWED_ORIGIN"))
 	w.Write([]byte(fmt.Sprintf("[%s]", strings.Join(messages, ","))))
 }
@@ -71,7 +73,8 @@ func main() {
 	go hub.run()
 
 	redisClient = redis.NewClient(&redis.Options{
-		Addr: "REDIS_ADDR:6379",
+		Addr: "redis.jx-staging.svc.cluster.local:6379",
+		// Addr: "REDIS_ADDR:6379",
 // 		Addr: os.Getenv("REDIS_ADDR"),
 	})
 
