@@ -1,31 +1,26 @@
-# Start from the latest golang base image
+# Imagem base 
 FROM golang:latest
 
-RUN apt-get update -y && \
-    apt install -y dnsutils
+# Atualização da imagem
+RUN apt-get -y update 
 
-
-# Add Maintainer Info
+# Mantenedor da Imagem
 LABEL maintainer="Heberson Aguiar <hebersonaguiar@gmail.com>"
 
-# Set the Current Working Directory inside the container
+# Diretório padrão da imagem
 WORKDIR /app                                               
 
+#Cópia do código fonte para o diretório padrão
 COPY client.go hub.go main.go go.mod go.sum ./
-#COPY docker-entrypoint.sh /entrypoint.sh
 
-#RUN chmod +x /entrypoint.sh
-
-# Download all dependencies. Dependencies will be cached if the go.mod and go.sum files are not changed
-#ENTRYPOINT ["/entrypoint.sh"]
-
+# Download das dependências. As Dependências serão chacheadas se os arquivos go.mod and go.sum não forem alterados
 RUN go get ./...
 
-# Build the Go app
+# Compilação da aplicação Go
 RUN go build ./
                                                                                                        
-# Expose port 8080 to the outside world                                                                
+# Expondo a porta 8080                                                                
 EXPOSE 8080
 
-# Command to run the executable                                                                        
+# Comando de execução da aplicação.
 CMD ["./ditochatbackend"]

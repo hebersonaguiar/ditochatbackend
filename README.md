@@ -4,6 +4,8 @@ Repositório base: https://github.com/ditointernet/dito-chat/tree/master/backend
 
 Inspirado no projeto [https://github.com/gorilla/websocket/tree/master/examples/chat](https://github.com/gorilla/websocket/tree/master/examples/chat)
 
+DNS utilizado para essa aplicação: `backend.ditochallenge.com` 
+
 ## Docker
 O Docker é uma plataforma para desenvolvedores e administradores de sistemas para desenvolver, enviar e executar aplicativos. O Docker permite montar aplicativos rapidamente a partir de componentes e elimina o atrito que pode ocorrer no envio do código. O Docker permite que seu código seja testado e implantado na produção o mais rápido possível.
 Originalmente essa aplicação não foi desenvolvida para docker, porém sua criação é simples e rápido. 
@@ -11,12 +13,8 @@ Originalmente essa aplicação não foi desenvolvida para docker, porém sua cri
 ## Dockerfile
 No Dockerfile encontra-se todas as informações para a criação da imagem, para esse projeto foi utilizado como base a imagem `golang:latest`, mais abaixo é copiado código da aplicação e a compilação são realizadas para que seja executada corretamente.
 
-## Entrypoint
-No Dockerfile é copiado um arquivo chamado docker-entrypoint.sh no qual é um ShellScript que recebe os parâmentros necessários para execução da aplicação são eles:
-- `ALLOWED_ORIGIN`: resposável pro aceitar requisições de uma determinada origem. Ex: `http://localhost:3000`
-- `REDIS_ADDR`: resposável por receber as mensagem enviadas. Ex: `localhost:6379`
+Nota: na aplicação é necessário informar alguns dados importantes para o funcionamento, que é a origem da conexão de envio das mensagens, ou seja, o [frontend](https://github.com/hebersonaguiar/ditochatfrontend) e o redis, que é o responsável por salvar as mensagens. Para esse projeto foi criado e configurado os domínios  `frontend.ditochallenge.com` e `redis.ditochallenge.com`, eles são informados no código da aplicação em `main.go`.
 
-O docker-entrypoint.sh realiza uma checagem verificando se os valores foram informados, se sim as variáveis são alteradas no arquivo `main.go`, se não o contêiner não inicializa infomrmando log de como inicializar o contêiner.
 
 ## Build da imagem
 ```bash
@@ -30,16 +28,12 @@ docker push hebersonaguiar/ditochatbackend:latest
 
 ## Uso da imagem
 ```bash
-docker run docker run -dti -e ALLOWED_ORIGIN='http://localhost:3000' \
-	   -e REDIS_ADDR='localhost:6379' \
-	   hebersonaguiar/ditochatbackend
+docker run docker -dti hebersonaguiar/ditochatbackend
 ```
-* Importante: para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
-
 ## Google Cloud Plataform
 Google Cloud Platform é uma suíte de cloud oferecida pelo Google, funcionando na mesma infraestrutura que a empresa usa para seus produtos dirigidos aos usuários, dentre eles o Buscador Google e o Youtube.
 
-Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS do domínio `ditochallenge.com` para o serviço do kubernetes e também foi utilizado o Kubernetes Engine, no qual foi criado um cluster kubernetes. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
+Para essa aplicação foram utilizados os seguintes produtos, Cloud DNS, utilizado para o apontamento DNS da aplicação do domínio `ditochallenge.com` para o serviço do kubernetes utilizando o Kubernetes Engine, no qual foi criado um cluster. Todas as informações de como criar o cluster e acessar utilizando o gloud e kubectl estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
 
 ## Jenkins X
 O Jenkins X possui os conceitos de Aplicativos e Ambientes. Você não instala o Jenkins diretamente para usar o Jenkins X, pois o Jenkins é incorporado como um mecanismo de pipeline como parte da instalação.
@@ -60,19 +54,14 @@ jx import --no-draft --url https://github.com/hebersonaguiar/ditochatbackend.git
 ## Kubernetes
 Kubernetes ou como é conhecido também K8s é um produto Open Source utilizado para automatizar a implantação, o dimensionamento e o gerenciamento de aplicativos em contêiner no qual agrupa contêineres que compõem uma aplicação em unidades lógicas para facilitar o gerenciamento e a descoberta de serviço
 
-Para essa aplicação foi utilizado o kubernetes na versão `v1.13.7-gke.24`, na Google Cloud Plataform - GCP utilizando o Google Kubernetes Engine, ou seja, a criação do cluster é realizado pela próprio GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre Jnekins X e Kubernetes, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
+Para essa aplicação foi utilizado o kubernetes na versão `v1.13.7-gke.24`, na Google Cloud Plataform - GCP utilizando o Kubernetes Engine, ou seja, a criação do cluster kubernetes é realizado pela própria GCP, nesse caso utilizamos também o Jenkins X para a criação do cluster e integração entre si, dados de criação do cluster e acessos estão no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git)
 
-Para essa aplicação foi utilizado o ConfigMap do kubernetes, que de forma simples é um conjunto de pares de chave-valor pra armazenamento de configurações, que fica armazenado dentro de arquivos que podemo ser consumidos através de pods ou controllers, o configmap criado foi:
+Para essa aplicação foi criado um namespace chamado chatdito, segue abaixo:
 
 ```bash
 kubectl create namespace chatdito
-
-kubectl create configmap chat-backend-values \
-		--from-literal ALLOWED_ORIGIN='http://frontend.ditochallenge.com:3000' \
-		--from-literal REDIS_ADDR='redis.ditochallenge.com:6379' \
-		--namespace chatdito
 ```
-* Importante: Para esse repositório foi criado um namespace específco, caso já exista algum a criação do mesmo não é necessária, atente-se apenas em criar o configmap no namespace correto. Os valores das variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` são DNS válidos do domínio `ditochallenge.com` e para o pleno funcionamento da aplicação é necessário o apontamento do serviço do redis na porta 6379.
+* Importante: Para esse repositório foi criado um namespace específco, caso já exista algum a criação do mesmo não é necessária.
 
 ## Helm Chart
 O Helm é um gerenciador de aplicações Kubernetes cria, versiona, compartilha e publica os artefatos. Com ele é possível desenvolver templates dos arquivos YAML e durante a instalaçao de cada aplicação personalizar os parâmentros com facilidade.
@@ -82,23 +71,22 @@ Parametros alterados para essa aplicação em `chart/values.yaml`:
 ```yaml
 ...
 service:
-  name: backend
+  name: ditochatbackend
   type: LoadBalancer
   externalPort: 8080
   internalPort: 8080
 ...
 ```
-* Importante:
-No arquivo `chart/template/deployment.yaml` possui duas variáveis `ALLOWED_ORIGIN` e `REDIS_ADDR` que foram informadas no tópico [Entrypoint](https://github.com/hebersonaguiar/ditochatbackend#entrypoint). Para que elas sejam informadas para o contêiner no cluster kubernetes foi criado um [configmap](https://github.com/hebersonaguiar/ditochatbackend#kubernetes) no Kubernetes com o nome `chat-backend-values`, sua execução foi informada anteriormente no tópico [Kubernetes](https://github.com/hebersonaguiar/ditochatbackend#kubernetes).
-
+Esse paramêtros foram alterados para que o pod seja exposto na porta 8080, dessa forma a aplicação ficará visível pela url http://backend.ditochallenge.com:8080
 
 ## Jenkinsfile
-O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
-Para esse repositório ele foi criado na instlação do Jenkins X no cluster Kubernetes descrito no repositório [Dito Desafio Docs](https://github.com/hebersonaguiar/ditodesafiodocs.git), nele possuem alguns estágios 
-* Build e Push da imagem
-* Alteração do Chart e push para o Chart Museum
-* Promoção para o ambiente de produção Kubernetes
-O acionamento do deploy é executado após a execução de um commit, uma vez acionado o Jenkins X executa o Jenkinsfile e o deploy da aplicação é realizada.
+O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins X, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
+O jenkinsfile possui alguns estágios
+	* Build e Push da imagem
+	* Alteração do Chart e push para o Chart Museum
+	* Promoção para o ambiente de produção Kubernetes
+
+O acionamento do deploy é iniciado após a execução de um commit, uma vez acionado o Jenkins X executa o jenkinsfile e o fluxo CI/CD é executado.
 
 ## Skaffold
 Skaffold é uma ferramenta de linha de comando que facilita o desenvolvimento contínuo de aplicações no Kubernetes. O Skaffold lida com o fluxo de trabalho para implantar a aplicação.
