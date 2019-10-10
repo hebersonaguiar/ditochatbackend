@@ -18,7 +18,8 @@ if [ ! -z "$ALLOWED_ORIGIN" ] || [ ! -z "$REDIS_ADDR" ] ; then
     # IPREDIS=$(cat /app/REDIS_ADDR)''
     sed -i "s/REDIS_ADDR/$REDIS_ADDR/g" /app/main.go
     sed -i "s/ALLOWED_ORIGIN/$ALLOWED_ORIGIN/g" /app/main.go
-    
+
+   
     #cd /app
     #go get ./...
     #go build ./
