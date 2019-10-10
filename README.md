@@ -105,9 +105,9 @@ Esse paramêtros foram alterados para que o pod seja exposto na porta 8080, dess
 ## Jenkinsfile
 O Jenkisfile é um arquivo de configuração utilizado para criação de papeline no Jenkins X, ele suporta três formatos diferentes: Scripted, Declarative e Groovy. 
 O jenkinsfile possui alguns estágios
-	* Build e Push da imagem
-	* Alteração do Chart e push para o Chart Museum
-	* Promoção para o ambiente de produção Kubernetes
+* Build e Push da imagem
+* Alteração do Chart e push para o Chart Museum
+* Promoção para o ambiente de produção Kubernetes
 
 O acionamento do deploy é iniciado após a execução de um commit, uma vez acionado o Jenkins X executa o jenkinsfile e o fluxo CI/CD é executado.
 
